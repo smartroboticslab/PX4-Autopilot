@@ -169,4 +169,9 @@ px4_add_romfs_files(
 	60000_uuv_generic
 	60001_uuv_hippocampus
 	60002_uuv_bluerov2_heavy
+
+	# SRL MAVs
+	4111_dji_f450_srl
+	4112_dji_s550_srl
+	4120_rmf_owl
 )

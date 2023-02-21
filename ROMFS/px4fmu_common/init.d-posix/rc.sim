@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Override some failsafes when simulating SRL MAVs
+
+param set NAV_DLL_ACT 0
+param set NAV_RCL_ACT 0
+param set COM_DISARM_PRFLT -1
