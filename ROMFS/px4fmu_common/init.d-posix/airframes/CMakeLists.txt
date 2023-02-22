@@ -81,7 +81,7 @@ px4_add_romfs_files(
 	6012_typhoon_h480_ctrlalloc.post
 
 	# SRL simulated MAVs
-	4211_dji_f450_srl
-	4212_dji_s550_srl
+	4214_dji_s500_srl
+	4215_dji_s550_srl
 	4220_rmf_owl
 )

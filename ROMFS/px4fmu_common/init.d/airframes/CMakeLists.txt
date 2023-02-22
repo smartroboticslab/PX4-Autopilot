@@ -171,7 +171,7 @@ px4_add_romfs_files(
 	60002_uuv_bluerov2_heavy
 
 	# SRL MAVs
-	4111_dji_f450_srl
-	4112_dji_s550_srl
+	4114_dji_s500_srl
+	4115_dji_s550_srl
 	4120_rmf_owl
 )
