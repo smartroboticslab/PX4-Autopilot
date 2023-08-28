@@ -6,3 +6,7 @@
 # @class Copter
 
 . "${R}etc/init.d/airframes/4001_quad_x"
+
+# Limit the yaw rate so that there's enough thrust when yawing to remain at the
+# desired altitude.
+param set-default MC_YAWRATE_MAX 45 # deg/s
