@@ -77,6 +77,7 @@ set(msg_files
 	estimator_states.msg
 	estimator_status.msg
 	estimator_status_flags.msg
+	external_motor_command.msg
 	event.msg
 	follow_target.msg
 	failure_detector_status.msg
