@@ -33,7 +33,7 @@ done
 # detect if running in docker
 if [ -f /.dockerenv ]; then
 	echo "Running within docker, installing initial dependencies";
-	apt-get --quiet -y update && DEBIAN_FRONTEND=noninteractive apt-get --quiet -y install \
+	apt-get --quiet -y update && apt-get --quiet -y install \
 		ca-certificates \
 		gnupg \
 		lsb-core \
@@ -74,7 +74,7 @@ echo
 echo "Installing PX4 general dependencies"
 
 sudo apt-get update -y --quiet
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y --quiet --no-install-recommends install \
+sudo apt-get -y --quiet --no-install-recommends install \
 	astyle \
 	build-essential \
 	cmake \
@@ -117,7 +117,7 @@ if [[ $INSTALL_NUTTX == "true" ]]; then
 	echo
 	echo "Installing NuttX dependencies"
 
-	sudo DEBIAN_FRONTEND=noninteractive apt-get -y --quiet --no-install-recommends install \
+	sudo apt-get -y --quiet --no-install-recommends install \
 		automake \
 		binutils-dev \
 		bison \
@@ -147,15 +147,9 @@ if [[ $INSTALL_NUTTX == "true" ]]; then
 		vim-common \
 		;
 	if [[ "${UBUNTU_RELEASE}" == "20.04" ]]; then
-		sudo DEBIAN_FRONTEND=noninteractive apt-get -y --quiet --no-install-recommends install \
-		kconfig-frontends \
+		sudo apt-get -y --quiet --no-install-recommends install \
+			kconfig-frontends \
 		;
-	fi
-
-
-	if [ -n "$USER" ]; then
-		# add user to dialout group (serial port access)
-		sudo usermod -a -G dialout $USER
 	fi
 
 	# arm-none-eabi-gcc
@@ -174,10 +168,10 @@ if [[ $INSTALL_NUTTX == "true" ]]; then
 	else
 		echo "Installing arm-none-eabi-gcc-${NUTTX_GCC_VERSION}";
 		wget -O /tmp/gcc-arm-none-eabi-${NUTTX_GCC_VERSION}-linux.tar.bz2 https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm/${NUTTX_GCC_VERSION_SHORT}/gcc-arm-none-eabi-${NUTTX_GCC_VERSION}-${INSTALL_ARCH}-linux.tar.bz2 && \
-			sudo tar -jxf /tmp/gcc-arm-none-eabi-${NUTTX_GCC_VERSION}-linux.tar.bz2 -C /opt/;
+			tar -jxf /tmp/gcc-arm-none-eabi-${NUTTX_GCC_VERSION}-linux.tar.bz2 -C ~/.local/opt/;
 
 		# add arm-none-eabi-gcc to user's PATH
-		exportline="export PATH=/opt/gcc-arm-none-eabi-${NUTTX_GCC_VERSION}/bin:\$PATH"
+		exportline="export PATH=~/.local/opt/gcc-arm-none-eabi-${NUTTX_GCC_VERSION}/bin:\$PATH"
 
 		if grep -Fxq "$exportline" $HOME/.profile; then
 			echo "${NUTTX_GCC_VERSION} path already set.";
@@ -194,7 +188,7 @@ if [[ $INSTALL_SIM == "true" ]]; then
 	echo "Installing PX4 simulation dependencies"
 
 	# General simulation dependencies
-	sudo DEBIAN_FRONTEND=noninteractive apt-get -y --quiet --no-install-recommends install \
+	sudo apt-get -y --quiet --no-install-recommends install \
 		bc \
 		;
 
@@ -209,7 +203,7 @@ if [[ $INSTALL_SIM == "true" ]]; then
 		gazebo_version=11
 	fi
 	# Java (jmavsim or fastrtps)
-	sudo DEBIAN_FRONTEND=noninteractive apt-get -y --quiet --no-install-recommends install \
+	sudo apt-get -y --quiet --no-install-recommends install \
 		ant \
 		openjdk-$java_version-jre \
 		openjdk-$java_version-jdk \
@@ -224,7 +218,7 @@ if [[ $INSTALL_SIM == "true" ]]; then
 	wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
 	# Update list, since new gazebo-stable.list has been added
 	sudo apt-get update -y --quiet
-	sudo DEBIAN_FRONTEND=noninteractive apt-get -y --quiet --no-install-recommends install \
+	sudo apt-get -y --quiet --no-install-recommends install \
 		dmidecode \
 		gazebo$gazebo_version \
 		gstreamer1.0-plugins-bad \
