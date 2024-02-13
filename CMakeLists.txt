@@ -161,7 +161,15 @@ if (NOT CATKIN_DEVEL_PREFIX)
 			"    macOS: brew install python")
 	endif()
 else()
-	find_package(PythonInterp REQUIRED)
+	# We want to use python3 in ROS noetic so that kconfiglib is found
+	# correctly. PythonInterp only finds python2 (used in older ROS
+	# versions).
+	if($ENV{ROS_DISTRO} STREQUAL "noetic")
+		find_package(Python3 REQUIRED COMPONENTS Interpreter)
+		set(PYTHON_EXECUTABLE ${Python3_EXECUTABLE})
+	else()
+		find_package(PythonInterp REQUIRED)
+	endif()
 endif()
 
 option(PYTHON_COVERAGE "Python code coverage" OFF)
